@@ -6,12 +6,20 @@ import { Button } from '@/shared/button'
 import { Icon } from '@/shared/icon'
 import { Field } from '@/shared/field'
 import { Navigation } from '@/features/header/navigation'
+import { UserMenu } from '@/features/header/user-menu'
+import avatarPNG from '@/assets/avatar.png'
 
 const navItems = reactive([
   { label: 'Избраное', icon: 'favorite', count: 0, link: '/favorites' },
   { label: 'Заказы', icon: 'orders', count: 0, link: '/orders' },
   { label: 'Корзина', icon: 'cart', count: 1, link: '/cart' }
 ])
+
+const userMenu = reactive({
+  avatar: avatarPNG,
+  name: 'Oleksiy',
+  menu: []
+})
 
 const onChangeSearch = (value: string) => console.log(value)
 const onSearch = () => console.log('SEND TO SERVER')
@@ -57,6 +65,9 @@ const onSearch = () => console.log('SEND TO SERVER')
       <div class="header__navigation">
         <Navigation :data="navItems" />
       </div>
+      <div class="header__user-menu">
+        <UserMenu :data="userMenu" />
+      </div>
     </Container>
   </header>
 </template>
@@ -88,5 +99,9 @@ const onSearch = () => console.log('SEND TO SERVER')
 
 .header__navigation {
   margin: 0 24px 0 40px;
+}
+
+.header__user-menu {
+  width: 217px;
 }
 </style>

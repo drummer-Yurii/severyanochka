@@ -45,9 +45,10 @@ const { data } = defineProps<Props>()
 
 .item__count {
   position: absolute;
-  top: -10px;
+  top: -9px;
   right: 6px;
   padding: 0px 4px;
+  font-size: 12px;
   background-color: var(--main-primary);
   color: var(--main-on-primary);
   border-radius: 6px;
