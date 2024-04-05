@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, reactive } from 'vue'
+import { reactive } from 'vue'
+import { storeToRefs } from 'pinia'
 import { Navigation } from '@/features/header/navigation'
 import { UserMenu } from '@/features/header/user-menu'
 import { usePersonStore } from '@/entities/person'
@@ -11,8 +12,8 @@ import { Field } from '@/shared/field'
 import avatarPNG from '@/assets/avatar.png'
 
 const personStore = usePersonStore()
-
-const person = computed(() => personStore.person)
+const { person, isAuth } = storeToRefs(personStore)
+const { setIsAuth } = personStore
 
 const navItems = reactive([
   { label: 'Избраное', icon: 'favorite', count: 0, link: '/favorites' },
@@ -31,6 +32,10 @@ const userMenu = reactive({
 
 const onChangeSearch = (value: string) => console.log(value)
 const onSearch = () => console.log('SEND TO SERVER')
+
+const login = () => {
+  setIsAuth(true)
+}
 </script>
 <template>
   <header class="header">
@@ -74,7 +79,13 @@ const onSearch = () => console.log('SEND TO SERVER')
         <Navigation :data="navItems" />
       </div>
       <div class="header__user-menu">
-        <UserMenu :data="userMenu" />
+        <UserMenu v-if="isAuth" :data="userMenu" />
+        <Button v-else class="header__login-btn" @click="login">
+          <template v-slot:rightIcon>
+            <Icon type="login" />
+          </template>
+          Войти
+        </Button>
       </div>
     </Container>
   </header>
@@ -118,5 +129,9 @@ const onSearch = () => console.log('SEND TO SERVER')
   position: absolute;
   top: -28px;
   width: 100%;
+}
+
+.header__login-btn {
+  width: 157px;
 }
 </style>

@@ -23,6 +23,7 @@ const classes = ['button', `size_${size}`, `decoration_${decoration}`, `color_${
     <Typography v-if="slots.default" class="button__text" tagName="p" size="s"
       ><slot></slot
     ></Typography>
+    <slot name="rightIcon"></slot>
   </button>
 </template>
 
@@ -48,7 +49,18 @@ const classes = ['button', `size_${size}`, `decoration_${decoration}`, `color_${
 
 .button.color_secondary {
   background-color: var(--main-secondary);
+}
+
+.button.color_secondary .button__text {
   color: var(--main-on-secondary);
+}
+
+.button.color_primary {
+  background: var(--main-primary);
+}
+
+.button.color_primary .button__text {
+  color: var(--main-on-primary);
 }
 
 .button.decoration_none {

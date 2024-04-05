@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { usePersonStore } from '@/entities/person'
 import { RouterLink } from 'vue-router'
 import { Avatar } from '@/shared/avatar'
 import { Typography } from '@/shared/typography'
@@ -14,6 +15,10 @@ interface Props {
   }
 }
 
+const personStore = usePersonStore()
+
+const { setIsAuth } = personStore
+
 const { data } = defineProps<Props>()
 
 const isOpen = ref(false)
@@ -23,7 +28,9 @@ const toggleMenu = () => {
 }
 
 const onClickItem = (action: string) => {
-  console.log(action)
+  if (action === 'logout') {
+    setIsAuth(false)
+  }
 }
 </script>
 
