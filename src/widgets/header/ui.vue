@@ -1,13 +1,18 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
+import { Navigation } from '@/features/header/navigation'
+import { UserMenu } from '@/features/header/user-menu'
+import { usePersonStore } from '@/entities/person'
 import { Container } from '@/shared/container'
 import { Logo } from '@/shared/logo'
 import { Button } from '@/shared/button'
 import { Icon } from '@/shared/icon'
 import { Field } from '@/shared/field'
-import { Navigation } from '@/features/header/navigation'
-import { UserMenu } from '@/features/header/user-menu'
 import avatarPNG from '@/assets/avatar.png'
+
+const personStore = usePersonStore()
+
+const person = computed(() => personStore.person)
 
 const navItems = reactive([
   { label: 'Избраное', icon: 'favorite', count: 0, link: '/favorites' },
@@ -17,7 +22,7 @@ const navItems = reactive([
 
 const userMenu = reactive({
   avatar: avatarPNG,
-  name: 'Oleksiy',
+  name: person.value.name,
   menu: [
     { label: 'Профиль', link: '/profile' },
     { label: 'Выйти', action: 'logout' }
