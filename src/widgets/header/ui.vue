@@ -18,7 +18,10 @@ const navItems = reactive([
 const userMenu = reactive({
   avatar: avatarPNG,
   name: 'Oleksiy',
-  menu: []
+  menu: [
+    { label: 'Профиль', link: '/profile' },
+    { label: 'Выйти', action: 'logout' }
+  ]
 })
 
 const onChangeSearch = (value: string) => console.log(value)
@@ -102,6 +105,13 @@ const onSearch = () => console.log('SEND TO SERVER')
 }
 
 .header__user-menu {
+  position: relative;
   width: 217px;
+}
+
+.header__user-menu:deep(.user-menu) {
+  position: absolute;
+  top: -28px;
+  width: 100%;
 }
 </style>

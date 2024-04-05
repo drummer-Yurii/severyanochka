@@ -40,7 +40,6 @@ const { data } = defineProps<Props>()
   flex-direction: column;
   grid-gap: 8px;
   text-decoration: none;
-  color: var(--main-on-surface);
 }
 
 .item__count {
