@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { storeToRefs } from 'pinia'
+import { RouterLink } from 'vue-router'
 import { Navigation } from '@/features/header/navigation'
 import { UserMenu } from '@/features/header/user-menu'
 import { DropdownMenu } from '@/features/header/dropdown-menu'
@@ -46,7 +47,16 @@ const toggleDropdownVisibility = () => (dropdownIsHidden.value = !dropdownIsHidd
   <header class="header">
     <div class="header__content">
       <Container class="header__container">
-        <Logo orientation="horizontal" bgColor="white" colorFull :withText="platform === 'desktop'" />
+        <div class="header__logo">
+          <RouterLink to="/">
+            <Logo
+              orientation="horizontal"
+              bgColor="white"
+              colorFull
+              :withText="platform === 'desktop'"
+            />
+          </RouterLink>
+        </div>
         <div class="header__catalog">
           <Button color="secondary" @mouseenter="toggleDropdownVisibility">
             <template v-slot:leftIcon>
@@ -186,6 +196,23 @@ const toggleDropdownVisibility = () => (dropdownIsHidden.value = !dropdownIsHidd
 
   .header__navigation {
     margin: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__catalog,
+  .header__navigation,
+  .header__user-menu {
+    display: none;
+  }
+
+  .header__logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .header__logo:deep(svg) {
+    width: 39px;
   }
 }
 </style>
