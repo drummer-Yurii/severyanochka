@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toRefs, computed } from 'vue'
 interface Props {
   orientation: 'vertical' | 'horizontal'
   colorFull: boolean
@@ -8,11 +9,29 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const { orientation, colorFull, bgColor, withText } = props
+const { orientation, colorFull, bgColor, withText } = toRefs(props)
 
-const option1 = orientation === 'vertical' && colorFull && bgColor === 'white' && withText
-const option2 = orientation === 'horizontal' && colorFull && bgColor === 'white' && withText
-// const option3 = orientation === 'horizontal' && colorFull && bgColor === 'white' && withText
+const option1 = computed(
+  () =>
+    orientation.value === 'vertical' &&
+    colorFull.value &&
+    bgColor.value === 'white' &&
+    withText.value
+)
+const option2 = computed(
+  () =>
+    orientation.value === 'horizontal' &&
+    colorFull.value &&
+    bgColor.value === 'white' &&
+    withText.value
+)
+const option3 = computed(
+  () =>
+    orientation.value === 'horizontal' &&
+    colorFull.value &&
+    bgColor.value === 'white' &&
+    !withText.value
+)
 </script>
 
 <template>
@@ -150,7 +169,7 @@ const option2 = orientation === 'horizontal' && colorFull && bgColor === 'white'
       fill="#414141"
     />
   </svg>
-  <!-- <svg
+  <svg
     v-if="option3"
     width="49"
     height="40"
@@ -170,5 +189,5 @@ const option2 = orientation === 'horizontal' && colorFull && bgColor === 'white'
       d="M1.47374 6.80845C1.90145 6.80845 2.32656 6.61556 2.60392 6.24542C4.00369 4.39475 6.66323 3.24264 9.54312 3.24264C12.423 3.24264 15.0825 4.39214 16.4823 6.24542C16.9567 6.87361 17.8484 6.99351 18.4705 6.51651C19.0952 6.0395 19.2144 5.14284 18.7401 4.51726C16.7856 1.93153 13.3484 0.388428 9.54312 0.388428C5.73783 0.388428 2.30064 1.93153 0.343567 4.51726C-0.130798 5.14544 -0.00896454 6.0395 0.613152 6.51651C0.872368 6.71461 1.17305 6.80845 1.47374 6.80845Z"
       fill="#414141"
     />
-  </svg> -->
+  </svg>
 </template>
