@@ -12,7 +12,6 @@ import { Logo } from '@/shared/logo'
 import { Button } from '@/shared/button'
 import { Icon } from '@/shared/icon'
 import { Field } from '@/shared/field'
-import avatarPNG from '@/assets/avatar.png'
 
 const screenStore = useScreenStore()
 const { platform } = storeToRefs(screenStore)
@@ -28,7 +27,7 @@ const navItems = reactive([
 ])
 
 const userMenu = reactive({
-  avatar: avatarPNG,
+  avatar: person.value.avatar,
   name: person.value.name,
   menu: [
     { label: 'Профиль', link: '/profile' },
@@ -213,6 +212,10 @@ const toggleDropdownVisibility = () => (dropdownIsHidden.value = !dropdownIsHidd
 
   .header__logo:deep(svg) {
     width: 39px;
+  }
+
+  .header__search {
+    width: 100%;
   }
 }
 </style>

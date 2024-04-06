@@ -1,11 +1,13 @@
 import { ref, reactive } from 'vue'
 import { defineStore } from 'pinia'
+import avatarPNG from '@/assets/avatar.png'
 import { type Person } from './types'
 
 export const usePersonStore = defineStore('person', () => {
     const isAuth = ref<boolean>(true)
     const person = reactive<Person>({
-        name: 'Oleksiy'
+        name: 'Oleksiy',
+        avatar: avatarPNG
     })
 
     const setIsAuth = (value: boolean) => isAuth.value = value
