@@ -33,7 +33,12 @@ const socials = reactive([
         </RouterLink>
       </div>
       <div class="footer__social">
-        <RouterLink v-for="social in socials" :key="social.icon" :to="social.href">
+        <RouterLink
+          class="social__link"
+          v-for="social in socials"
+          :key="social.icon"
+          :to="social.href"
+        >
           <Icon :type="social.icon" />
         </RouterLink>
       </div>
@@ -89,6 +94,10 @@ const socials = reactive([
     'createdBy createdBy createdBy createdBy';
 }
 
+.footer__logo {
+  grid-area: logo;
+}
+
 .footer__logo:deep(svg) {
   width: 64px;
   height: 44px;
@@ -96,12 +105,14 @@ const socials = reactive([
 
 .footer__links {
   display: flex;
+  grid-area: links;
   grid-gap: 40px;
   align-items: center;
 }
 
 .footer__social {
   display: flex;
+  grid-area: socials;
   grid-gap: 16px;
   align-items: center;
 }
@@ -114,6 +125,7 @@ const socials = reactive([
 }
 
 .footer__created-by {
+  grid-area: createdBy;
   grid-column: 4 /5;
   justify-content: flex-end;
 }
@@ -121,5 +133,99 @@ const socials = reactive([
 .footer__contact {
   display: flex;
   justify-content: flex-end;
+  grid-area: phone;
+}
+
+@media screen and (max-width: 1207px) {
+  .footer__content {
+    grid-template-columns: max-content 1fr;
+    grid-template-areas:
+      'logo links socials phone'
+      'logo links socials createdBy';
+  }
+  .footer__social {
+    display: grid;
+    grid-row: 1 /3;
+    grid-template-columns: repeat(2, max-content);
+    grid-gap: 8px;
+    height: max-content;
+  }
+
+  .footer__logo {
+    grid-row: 1 /3;
+  }
+
+  .social__link {
+    display: flex;
+    height: max-content;
+  }
+
+  .footer__links {
+    flex-wrap: wrap;
+    grid-row: 1 /3;
+    grid-row-gap: 8px;
+    max-width: 324px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .footer {
+    padding-top: 40px;
+    height: 206px;
+  }
+
+  .footer__created-by {
+    display: none;
+  }
+
+  .footer__content {
+    grid-template-areas:
+      'logo socials'
+      'logo phone'
+      'links links';
+  }
+
+  .footer__logo,
+  .footer__social,
+  .footer__links {
+    grid-row: unset;
+  }
+
+  .footer__logo {
+    grid-row: 1 / 3;
+    display: flex;
+    align-items: center;
+  }
+
+  .footer__links {
+    max-width: unset;
+    grid-gap: 16px;
+    grid-row-gap: 16px;
+    padding-top: 8px;
+  }
+
+  .footer__social {
+    display: flex;
+    grid-row: 1 / 1;
+    grid-gap: 16px;
+    justify-content: flex-end;
+  }
+
+  .footer__logo:deep(svg) {
+    width: 93px;
+    height: 64px;
+  }
+
+  .footer__links:deep(.typography.size_xs) {
+    font-size: 12px;
+  }
+
+  .contact__link:deep(.typography) {
+    font-size: 16px;
+  }
+
+  .footer__content {
+    max-width: 304px;
+  }
 }
 </style>

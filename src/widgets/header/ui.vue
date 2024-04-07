@@ -181,12 +181,11 @@ const toggleDropdownVisibility = () => (dropdownIsHidden.value = !dropdownIsHidd
   }
 
   .header__search {
-    width: max-content;
     margin-left: unset;
   }
 
   .header__user-menu {
-    width: unset;
+    width: 56px;
   }
 
   .header__user-menu:deep(.user-menu) {
