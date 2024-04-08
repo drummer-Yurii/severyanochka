@@ -1,11 +1,27 @@
 <script setup lang="ts">
 import { Carousel, Slide } from 'vue3-carousel'
 import { Typography } from '@/shared/typography';
-import bg from '@/assets/slide-1-bg.png'
+import desktopBg from '@/assets/slide-1-bg.png'
+import tabletBg from '@/assets/slide-1-bg-tablet.png'
+import mobileBg from '@/assets/slide-1-bg-mobile.png'
 
 const slides = [
-  { background: bg, text: 'Доставка бесплатно от 1000 ₽' },
-  { background: bg, text: 'Доставка платно' }
+  { 
+    background: {
+      desktop: desktopBg,
+      tablet: tabletBg,
+      mobile: mobileBg,
+    }, 
+    text: 'Доставка бесплатно от 1000 ₽' 
+  },
+  { 
+    background: {
+      desktop: desktopBg,
+      tablet: tabletBg,
+      mobile: mobileBg,
+    }, 
+    text: 'Доставка платно' 
+  }
 ]
 </script>
 
@@ -13,7 +29,11 @@ const slides = [
   <carousel class="carousel" :items-to-show="1" :wrapAround="true" :autoplay="3000">
     <slide v-for="slide in slides" :key="slide.text">
       <div class="slide">
-        <img class="slide__background" :src="slide.background" alt="bg" />
+        <picture>
+          <source class="slide__background" :srcset="slide.background.mobile" alt="bg" media="(max-width: 767px)" />
+          <source class="slide__background" :srcset="slide.background.tablet" alt="bg" media="(max-width: 1207px)" />
+          <img class="slide__background" :src="slide.background.desktop" alt="bg" />
+        </picture>
         <Typography class="slide__text" tagName="h2" bold>
           {{ slide.text }}
         </Typography>
@@ -38,10 +58,33 @@ const slides = [
   left: 0;
   z-index: -1;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .slide__text {
   margin-left: 20%;
   user-select: none;
+}
+
+@media screen and (max-width: 1207px) {
+  .slide {
+    height: 160px;
+  }
+
+  .slide__text {
+    font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .slide {
+    height: 80px;
+  }
+
+  .slide__text {
+    margin-left: 0;
+    font-size: 18px;
+  }
 }
 </style>
