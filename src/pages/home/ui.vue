@@ -2,12 +2,16 @@
 import { Header } from '@/widgets/header'
 import { BottomTabNavigator } from '@/widgets/bottom-tab-navigator'
 import { Footer } from '@/widgets/footer'
-import { Content } from '@/shared/content';
+import { MainCarousel } from '@/features/main-carousel'
+import { Content } from '@/shared/content'
+
 </script>
 
 <template>
   <Header />
   <BottomTabNavigator />
-  <Content />
+  <Content>
+    <MainCarousel />
+  </Content>
   <Footer />
 </template>
