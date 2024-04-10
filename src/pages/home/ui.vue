@@ -18,7 +18,10 @@ const saleCards = reactive<CardsProps>({
       {
         img: product1PNG,
         name: 'Г/Ц Блинчики с мясом вес',
-        sale: 50
+        sale: 50,
+        price: 50.5,
+        priceWithSale: 44.5,
+        count: 1
       }
     ]
   }
