@@ -21,7 +21,7 @@ const saleCards = reactive<CardsProps>({
         sale: 50,
         price: 50.5,
         priceWithSale: 44.5,
-        count: 1
+        count: 0
       }
     ]
   }

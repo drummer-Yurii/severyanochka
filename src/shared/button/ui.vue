@@ -42,7 +42,6 @@ const classes = computed(() => [
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: 0.3s ease-in-out;
 }
 
 .button__text {

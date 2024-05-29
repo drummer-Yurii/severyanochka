@@ -3,12 +3,17 @@ import { ref } from 'vue'
 import { formatCurrency } from '@/app/helpers'
 import { Rating } from '@/shared/rating'
 import { Button } from '@/shared/button'
+import { Icon } from '@/shared/icon'
 import { type Card } from './types'
 
 const props = defineProps<{ data: Card }>()
 const { img, name = 'Не указан', price, priceWithSale } = props.data
 
 const isHovered = ref(false)
+const count = ref(0)
+
+const increaseProduct = () => (count.value += 1)
+const decreaseProduct = () => (count.value -= 1)
 </script>
 
 <template>
@@ -33,16 +38,30 @@ const isHovered = ref(false)
       <h5 class="product-card__name">Г/Ц Блинчики с мясом вес</h5>
       <Rating :value="2" />
       <Button
+        v-if="count === 0"
         :color="isHovered ? 'primary' : 'secondary'"
         :decoration="isHovered ? 'default' : 'outline'"
         :count="props.data.count"
+        @click="increaseProduct"
+      >
+        В корзину
+      </Button>
+      <Button
+        v-else
+        :color="'secondary'"
+        :decoration="'default'"
+        :count="props.data.count"
       >
         <template v-slot:leftIcon>
-          <Icon type="minus" />
+          <button class="product-card__btn-count" @click="decreaseProduct">
+            <Icon type="minus" />
+          </button>
         </template>
-        В корзину
+        {{ count }}
         <template v-slot:rightIcon>
-          <Icon type="plus" />
+          <button class="product-card__btn-count" @click="increaseProduct">
+            <Icon type="plus" />
+          </button>
         </template>
       </Button>
     </div>
@@ -116,5 +135,12 @@ const isHovered = ref(false)
   font-weight: 400;
   font-size: 16px;
   color: var(--main-on-surface);
+}
+
+.product-card__btn-count {
+  background-color: unset;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 </style>
