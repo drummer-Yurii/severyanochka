@@ -5,10 +5,19 @@ import { ProductCard } from '@/entities/product/card'
 import { Typography } from '@/shared/typography'
 import { Icon } from '@/shared/icon'
 import { Badge } from '@/shared/badge'
-import { type CardsProps } from './types'
+import { type CardsProps, type Card } from './types'
 
 const { data } = defineProps<CardsProps>()
+const emit = defineEmits<{
+  (e: 'onChangeCard', product: Card): void
+}>()
 const { title = 'Не указан', listLinkText = 'Не указан', listLinkHref = '/', items } = data
+
+const toggleLike = (product: Card) => {
+  const p = {...product}
+  p.isLiked = !p.isLiked
+  emit('onChangeCard', p)
+}
 </script>
 
 <template>
@@ -25,10 +34,10 @@ const { title = 'Не указан', listLinkText = 'Не указан', listLin
     <div class="cards__list">
       <ProductCard v-for="(product, i) in items" :key="product.name + i" :data="product">
         <template #headerTopRight>
-          <Like />
+          <Like :isLiked="product.isLiked" @click="() => toggleLike(product)" />
         </template>
         <template v-if="product.sale" #headerBottomLeft>
-            <Badge>-{{ product.sale }}%</Badge>
+          <Badge>-{{ product.sale }}%</Badge>
         </template>
       </ProductCard>
     </div>
