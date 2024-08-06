@@ -178,13 +178,13 @@ const onChangeItem = (product: Card, category: 'sale' | 'new' | 'earlier') => {
   <BottomTabNavigator />
   <Content>
     <MainCarousel />
-    <Container :style="{ margin: '80px auto' }">
+    <Container class="cards-container sale-cards">
       <Cards :info="saleInfo" :items="saleItems" @onChangeCard="(p) => onChangeItem(p, 'sale')" />
     </Container>
-    <Container :style="{ margin: '80px auto' }">
+    <Container class="cards-container">
       <Cards :info="newInfo" :items="newItems" @onChangeCard="(p) => onChangeItem(p, 'new')" />
     </Container>
-    <Container :style="{ margin: '80px auto' }">
+    <Container class="cards-container">
       <Cards
         :info="boughtEarlierInfo"
         :items="boughtEarlierItems"
@@ -194,3 +194,15 @@ const onChangeItem = (product: Card, category: 'sale' | 'new' | 'earlier') => {
   </Content>
   <Footer />
 </template>
+
+<style scoped>
+.cards-container {
+  margin: 80px auto;
+}
+
+@media screen and (max-width: 767px) {
+  .sale-cards {
+    margin-top: 40px;
+  }
+}
+</style>
