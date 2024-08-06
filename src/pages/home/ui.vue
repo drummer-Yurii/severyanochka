@@ -4,10 +4,14 @@ import { Header } from '@/widgets/header'
 import { BottomTabNavigator } from '@/widgets/bottom-tab-navigator'
 import { Footer } from '@/widgets/footer'
 import { Cards, type Card } from '@/widgets/cards'
+import { SpecialOffers } from '@/widgets/special-offers'
 import { MainCarousel } from '@/features/main-carousel'
+import { type Offer } from '@/features/special-offer'
 import { Content } from '@/shared/content'
 import { Container } from '@/shared/container'
 import product1PNG from '@/assets/product-1.png'
+import specialOffer1PNG from '@/assets/special-offer-1.png'
+import specialOffer2PNG from '@/assets/special-offer-2.png'
 
 const saleInfo = ref({
   title: 'Акции',
@@ -156,20 +160,41 @@ const boughtEarlierItems = ref<Card[]>([
   }
 ])
 
+const specialOffersInfo = ref({
+  title: 'Специальные предложения'
+})
+
+const specialOffers = ref<Offer[]>([
+  {
+    title: 'Оформите карту «Северяночка»',
+    description: 'И получайте бонусы при покупке в магазинах и на сайте',
+    background: specialOffer1PNG
+  },
+  {
+    title: 'Покупайте акционные товары',
+    description: 'И получайте вдвое больше бонусов',
+    background: specialOffer2PNG
+  }
+])
+
 const onChangeItem = (product: Card, category: 'sale' | 'new' | 'earlier') => {
-  let categoryItems;
+  let categoryItems
   switch (category) {
     case 'sale':
-      categoryItems = saleItems;
-      break;
+      categoryItems = saleItems
+      break
     case 'new':
-      categoryItems = newItems;
-      break;
+      categoryItems = newItems
+      break
     case 'earlier':
-      categoryItems = boughtEarlierItems;
-      break;
+      categoryItems = boughtEarlierItems
+      break
   }
   categoryItems.value = categoryItems.value.map((item) => (item.id === product.id ? product : item))
+}
+
+const onClickOffer = (offer: Offer) => {
+  console.log(offer)
 }
 </script>
 
@@ -178,17 +203,24 @@ const onChangeItem = (product: Card, category: 'sale' | 'new' | 'earlier') => {
   <BottomTabNavigator />
   <Content>
     <MainCarousel />
-    <Container class="cards-container sale-cards">
+    <Container class="section sale-cards">
       <Cards :info="saleInfo" :items="saleItems" @onChangeCard="(p) => onChangeItem(p, 'sale')" />
     </Container>
-    <Container class="cards-container">
+    <Container class="section">
       <Cards :info="newInfo" :items="newItems" @onChangeCard="(p) => onChangeItem(p, 'new')" />
     </Container>
-    <Container class="cards-container">
+    <Container class="section">
       <Cards
         :info="boughtEarlierInfo"
         :items="boughtEarlierItems"
         @onChangeCard="(p) => onChangeItem(p, 'earlier')"
+      />
+    </Container>
+    <Container class="section">
+      <SpecialOffers
+        :info="specialOffersInfo"
+        :items="specialOffers"
+        @onClickOffer="onClickOffer"
       />
     </Container>
   </Content>
@@ -196,7 +228,7 @@ const onChangeItem = (product: Card, category: 'sale' | 'new' | 'earlier') => {
 </template>
 
 <style scoped>
-.cards-container {
+.section {
   margin: 80px auto;
 }
 
