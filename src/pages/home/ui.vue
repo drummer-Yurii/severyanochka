@@ -3,9 +3,10 @@ import { ref } from 'vue'
 import { Header } from '@/widgets/header'
 import { BottomTabNavigator } from '@/widgets/bottom-tab-navigator'
 import { Footer } from '@/widgets/footer'
-import { Cards, type Card } from '@/widgets/cards'
+import { ProductCards, type Card } from '@/widgets/product-cards'
 import { SpecialOffers } from '@/widgets/special-offers'
 import { ShopsMap, type Shop } from '@/widgets/shops-map'
+import { ArticleCards } from '@/widgets/article-cards'
 import { MainCarousel } from '@/features/main-carousel'
 import { type Offer } from '@/features/special-offer'
 import { Content } from '@/shared/content'
@@ -205,6 +206,12 @@ const shops = ref<Shop[]>([
   }
 ])
 
+const articlesInfo = ref({
+  title: 'Статьи',
+  listLinkText: 'Все статьи',
+  listLinkHref: '/'
+})
+
 const onChangeItem = (product: Card, category: 'sale' | 'new' | 'earlier') => {
   let categoryItems
   switch (category) {
@@ -236,13 +243,21 @@ const onClickShop = (shop: Shop) => {
   <Content>
     <MainCarousel />
     <Container class="section sale-cards">
-      <Cards :info="saleInfo" :items="saleItems" @onChangeCard="(p) => onChangeItem(p, 'sale')" />
+      <ProductCards
+        :info="saleInfo"
+        :items="saleItems"
+        @onChangeCard="(p) => onChangeItem(p, 'sale')"
+      />
     </Container>
     <Container class="section">
-      <Cards :info="newInfo" :items="newItems" @onChangeCard="(p) => onChangeItem(p, 'new')" />
+      <ProductCards
+        :info="newInfo"
+        :items="newItems"
+        @onChangeCard="(p) => onChangeItem(p, 'new')"
+      />
     </Container>
     <Container class="section">
-      <Cards
+      <ProductCards
         :info="boughtEarlierInfo"
         :items="boughtEarlierItems"
         @onChangeCard="(p) => onChangeItem(p, 'earlier')"
@@ -258,13 +273,17 @@ const onClickShop = (shop: Shop) => {
     <Container class="section">
       <ShopsMap :info="shopsInfo" :items="shops" @onClick="onClickShop" />
     </Container>
+    <Container class="section">
+      <ArticleCards :info="articlesInfo" :items="[]" />
+    </Container>
   </Content>
   <Footer />
 </template>
 
 <style scoped>
 .section {
-  margin: 80px auto;
+  margin: 0 auto;
+  padding: 60px 0;
 }
 
 @media screen and (max-width: 767px) {
