@@ -5,6 +5,7 @@ import { BottomTabNavigator } from '@/widgets/bottom-tab-navigator'
 import { Footer } from '@/widgets/footer'
 import { Cards, type Card } from '@/widgets/cards'
 import { SpecialOffers } from '@/widgets/special-offers'
+import { ShopsMap, type Shop } from '@/widgets/shops-map'
 import { MainCarousel } from '@/features/main-carousel'
 import { type Offer } from '@/features/special-offer'
 import { Content } from '@/shared/content'
@@ -177,6 +178,33 @@ const specialOffers = ref<Offer[]>([
   }
 ])
 
+const shopsInfo = ref({
+  title: 'Наши магазины'
+})
+
+const shops = ref<Shop[]>([
+  {
+    id: 0,
+    name: 'п.Щельяюр',
+    checked: true
+  },
+  {
+    id: 1,
+    name: 'д.Вертеп',
+    checked: false
+  },
+  {
+    id: 2,
+    name: 'с.Краснобор',
+    checked: false
+  },
+  {
+    id: 3,
+    name: 'д.Диюр',
+    checked: false
+  }
+])
+
 const onChangeItem = (product: Card, category: 'sale' | 'new' | 'earlier') => {
   let categoryItems
   switch (category) {
@@ -195,6 +223,10 @@ const onChangeItem = (product: Card, category: 'sale' | 'new' | 'earlier') => {
 
 const onClickOffer = (offer: Offer) => {
   console.log(offer)
+}
+
+const onClickShop = (shop: Shop) => {
+  shops.value = shops.value.map((s: any) => ({ ...s, checked: s.id === shop.id }))
 }
 </script>
 
@@ -222,6 +254,9 @@ const onClickOffer = (offer: Offer) => {
         :items="specialOffers"
         @onClickOffer="onClickOffer"
       />
+    </Container>
+    <Container class="section">
+      <ShopsMap :info="shopsInfo" :items="shops" @onClick="onClickShop" />
     </Container>
   </Content>
   <Footer />

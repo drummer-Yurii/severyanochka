@@ -56,6 +56,7 @@ const emit = defineEmits<{
 
 @media screen and (max-width: 767px) {
   .special-offers__list {
+    grid-template-columns: 1fr;
     grid-gap: 16px;
     margin-top: 24px;
   }
