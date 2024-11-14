@@ -48,7 +48,7 @@ const toggleLike = (product: Card) => emit('onChangeCard', { ...product, isLiked
 .cards__header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
 }
 .link__icon {
   transform: rotate(-90deg);

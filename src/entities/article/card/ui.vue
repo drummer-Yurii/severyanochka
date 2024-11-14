@@ -6,7 +6,7 @@ import artcle1PNG from '@/assets/article1.png'
 
 <template>
   <article class="article">
-    <img :src="artcle1PNG" alt="Article" />
+    <img class="article__img" :src="artcle1PNG" alt="Article" />
     <div class="article__content">
       <Typography class="article__date" tagName="span" size="xs">05.03.2021</Typography>
       <Typography class="article__title" tagName="h5" size="xs" bold>
@@ -26,11 +26,11 @@ import artcle1PNG from '@/assets/article1.png'
   border-radius: 4px;
   overflow: hidden;
   background-color: var(--main-surface);
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 .article:hover {
-    box-shadow: var(--shadow-primary-m);
+  box-shadow: var(--shadow-primary-m);
 }
 
 .article__content {
@@ -52,6 +52,29 @@ import artcle1PNG from '@/assets/article1.png'
 }
 
 .article__link {
-    width: 150px;
+  width: 150px;
+}
+
+@media screen and (max-width: 1207px) {
+  .article__img {
+    width: 100%;
+    max-height: 156px;
+    object-fit: cover;
+  }
+  .article__date {
+    font-size: 8px;
+  }
+  .article__title {
+    font-size: 16px;
+  }
+  .article__description {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .article__img {
+    height: 96px;
+  }
 }
 </style>
